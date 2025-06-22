@@ -12,6 +12,11 @@
   <link rel="icon" href="favicon.ico" type="image/x-icon" />
   <title>Проект ТЕНЬ</title>
 
+  <!-- Security Headers -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self' https://cdn.pixabay.com; frame-ancestors 'none'; object-src 'none';">
+  <meta http-equiv="X-Content-Type-Options" content="nosniff">
+  <!-- End Security Headers -->
+
   <meta name="referrer" content="no-referrer">
   <style>
     :root {
@@ -873,7 +878,7 @@ a:hover {
       // ... existing code ...
     };
   </script>
-<body>
+<body oncontextmenu="return false;">
   <div class="noise-overlay"></div>
   <div id="shadow-anim"></div>
 
@@ -2284,6 +2289,32 @@ Stacktrace: ████████████████████
 
       // --- Локализация ---
       // (Весь код локализации удалён)
+      
+      // --- Security Measures ---
+      const devToolsOverlay = document.createElement('div');
+      devToolsOverlay.id = 'dev-tools-overlay';
+      devToolsOverlay.style.cssText = 'position:fixed;top:0;left:0;width:100vw;height:100vh;background:rgba(0,0,0,0.99);color:#f33;z-index:99999;display:none;align-items:center;justify-content:center;text-align:center;font-family:\"Special Elite\", \"Courier New\", Courier, monospace;font-size:1.8rem;';
+      devToolsOverlay.innerHTML = `<div style="border: 3px solid #f33; padding: 2em 3em; box-shadow: 0 0 24px #f33a;">[ПРОТОКОЛ БЕЗОПАСНОСТИ АКТИВИРОВАН]<br>ПОПЫТКА НЕСАНКЦИОНИРОВАННОГО АНАЛИЗА СИСТЕМЫ.<br>ДОСТУП ПРЕКРАЩЁН.<br>IP АДРЕС ЗАРЕГИСТРИРОВАН.</div>`;
+      document.body.appendChild(devToolsOverlay);
+      
+      const devToolsDetector = () => {
+        const threshold = 170;
+        // Size check
+        if (window.outerWidth - window.innerWidth > threshold || window.outerHeight - window.innerHeight > threshold) {
+          devToolsOverlay.style.display = 'flex';
+        }
+        // Debugger check
+        const start = new Date().getTime();
+        debugger;
+        const end = new Date().getTime();
+        if (end - start > 100) {
+          devToolsOverlay.style.display = 'flex';
+        }
+      };
+      
+      setInterval(devToolsDetector, 1000);
+      window.addEventListener('resize', devToolsDetector);
+      devToolsDetector();
     });
   </script>
 </body>
