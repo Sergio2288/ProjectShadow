@@ -12,6 +12,12 @@
   <link rel="icon" href="favicon.ico" type="image/x-icon" />
   <title>Проект ТЕНЬ</title>
 
+  <!-- Рекомендуемые HTTP-заголовки для усиления защиты -->
+  <meta http-equiv="Strict-Transport-Security" content="max-age=63072000; includeSubDomains; preload">
+  <meta http-equiv="X-Frame-Options" content="DENY">
+  <meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=()">
+  <!-- Referrer-Policy уже установлен -->
+
   <!-- Security Headers -->
   <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self' https://cdn.pixabay.com; frame-ancestors 'none'; object-src 'none';">
   <meta http-equiv="X-Content-Type-Options" content="nosniff">
